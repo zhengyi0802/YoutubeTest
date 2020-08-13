@@ -19,6 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import tk.munditv.uvideos.database.DBHelper;
 import tk.munditv.uvideos.ui.home.HomeFragment;
 import tk.munditv.uvideos.ui.live.LiveFragment;
 import tk.munditv.uvideos.ui.login.LoginActivity;
@@ -29,6 +30,9 @@ import tk.munditv.uvideos.ui.videos.VideosFragment;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private static DBHelper mDbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
