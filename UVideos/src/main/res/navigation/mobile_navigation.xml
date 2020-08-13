@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="tk.munditv.uvideos.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_videos"
+        android:name="tk.munditv.uvideos.ui.videos.VideosFragment"
+        android:label="@string/menu_videos"
+        tools:layout="@layout/fragment_videos" />
+
+    <fragment
+        android:id="@+id/nav_musics"
+        android:name="tk.munditv.uvideos.ui.musics.MusicsFragment"
+        android:label="@string/menu_musics"
+        tools:layout="@layout/fragment_musics" />
+
+    <fragment
+        android:id="@+id/nav_news"
+        android:name="tk.munditv.uvideos.ui.news.NewsFragment"
+        android:label="@string/menu_news"
+        tools:layout="@layout/fragment_news" />
+
+    <fragment
+        android:id="@+id/nav_live"
+        android:name="tk.munditv.uvideos.ui.live.LiveFragment"
+        android:label="@string/menu_live"
+        tools:layout="@layout/fragment_live" />
+
+</navigation>
