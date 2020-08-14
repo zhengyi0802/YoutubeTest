@@ -1,6 +1,7 @@
 package tk.munditv.uvideos;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -19,7 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import tk.munditv.uvideos.database.DBHelper;
+import tk.munditv.uvideos.database.VideosDatabase;
 import tk.munditv.uvideos.ui.home.HomeFragment;
 import tk.munditv.uvideos.ui.live.LiveFragment;
 import tk.munditv.uvideos.ui.login.LoginActivity;
@@ -30,9 +31,6 @@ import tk.munditv.uvideos.ui.videos.VideosFragment;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
-    private static DBHelper mDbHelper;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 return displaySelectedScreen(item.getItemId());
             }
         });
+
+        VideosDatabase.initialize(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VideosDatabase.closeDatabase();
     }
 
     @Override
@@ -85,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings :
                 intent = new Intent(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+            case R.id.action_database :
+                intent = new Intent(this, DatabaseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
