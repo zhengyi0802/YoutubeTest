@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
 
         //initailising the objects with their respective view in activity_main.xml file
         mProgressDialog = new ProgressDialog(getContext());
-        mRecyclerView = root.findViewById(R.id.videos_recycler_view);
+        mRecyclerView = root.findViewById(R.id.home_recycler_view);
         searchInput = root.findViewById(R.id.search_input);
 
         //setting title and and style for progress dialog so that users can understand

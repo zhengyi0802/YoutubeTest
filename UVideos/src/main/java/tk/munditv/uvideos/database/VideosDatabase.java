@@ -3,7 +3,10 @@ package tk.munditv.uvideos.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +25,12 @@ public class VideosDatabase {
 
     private static DBHelper mDH;
     private static SQLiteDatabase mDB;
+    private static Context mContext;
 
-    public static void initialize(Context mContext) {
-        mDH = new DBHelper(mContext, DBName, null, Version);
+    public static void initialize(Context context) {
+        mDH = new DBHelper(context, DBName, null, Version);
         mDB = mDH.getWritableDatabase();
+        mContext = context;
         return;
     }
 
@@ -57,7 +62,11 @@ public class VideosDatabase {
         values.put("catagoryid", videosTable.getCatagoryId());
         values.put("groupid", videosTable.getGroupid());
         values.put("descriptions", videosTable.getDescriptions());
-        mDB.insert("videos", null, values);
+        try {
+            mDB.insert("videos", null, values);
+        } catch (Exception e) {
+            Toast.makeText(mContext,"videos data insert error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void deleteGroupData(@NonNull String name) {

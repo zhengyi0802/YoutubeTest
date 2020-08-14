@@ -4,6 +4,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,14 +20,20 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 
+import tk.munditv.uvideos.database.VideosDatabase;
+import tk.munditv.uvideos.database.VideosTable;
 import tk.munditv.uvideos.utils.FullScreenHelper;
 
 
 public class PlayerActivity extends AppCompatActivity {
 
+    private static final String TAG = "PlayerActivity";
+
     private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
     private String videoID;
+    private String title;
+    private String descriptions;
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
@@ -68,9 +76,11 @@ public class PlayerActivity extends AppCompatActivity {
         //of which getStringExtra returns the string which was passed while calling the intent
         //by using the name that was associated during call
         videoID = getIntent().getStringExtra("VIDEO_ID");
-        video_title.setText(getIntent().getStringExtra("VIDEO_TITLE"));
-        video_id.setText("Video ID : "+(getIntent().getStringExtra("VIDEO_ID")));
-        video_desc.setText(getIntent().getStringExtra("VIDEO_DESC"));
+        title = getIntent().getStringExtra("VIDEO_TITLE");
+        descriptions = getIntent().getStringExtra("VIDEO_DESC");
+        video_title.setText(title);
+        video_id.setText("Video ID : " + videoID);
+        video_desc.setText(descriptions);
 
         // The player will automatically release itself when the activity is destroyed.
         // The player will automatically pause when the activity is stopped
@@ -90,6 +100,13 @@ public class PlayerActivity extends AppCompatActivity {
                 addFullScreenListenerToPlayer();
             }
         });
+        VideosDatabase.initialize(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        VideosDatabase.closeDatabase();
     }
 
     /**
@@ -99,13 +116,19 @@ public class PlayerActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUiController()
                 .showMenuButton(true)
                 .getMenu()
-                    .addItem(new MenuItem("menu item1", R.drawable.ic_android_black_24dp,
-                                    view -> Toast.makeText(this, "item1 clicked", Toast.LENGTH_SHORT).show())
-                    ).addItem(new MenuItem("menu item2", R.drawable.ic_mood_black_24dp,
-                                    view -> Toast.makeText(this, "item2 clicked", Toast.LENGTH_SHORT).show())
-                    ).addItem(new MenuItem("menu item no icon",
-                                    view -> Toast.makeText(this, "item no icon clicked", Toast.LENGTH_SHORT).show()));
+                .addItem(new MenuItem("favorite", R.drawable.favicon,
+                        AddFavorite));
     }
+
+    private View.OnClickListener AddFavorite = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Log.d(TAG, "AddFavorite - OnClick()");
+            VideosTable videosTable = new VideosTable(-1, videoID, title,
+                    1, 1, descriptions);
+            VideosDatabase.insertVideoData(videosTable);
+        }
+    };
 
     private void addFullScreenListenerToPlayer() {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {

@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "onCreate()");
         String sql = "CREATE TABLE IF NOT EXISTS videos ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "videoid VARCHAR(20), "
+                + "videoid VARCHAR(20) UNIQUE, "
                 + "title VARCHAR(200), "
                 + "catagoryid INTEGER, "
                 + "groupid INTEGER, "
@@ -32,12 +32,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         sql = "CREATE TABLE IF NOT EXISTS catagory ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "name VARCHAR(50), "
+                + "name VARCHAR(50) UNIQUE, "
                 + "descriptions TEXT);";
         sqLiteDatabase.execSQL(sql);
         sql = "CREATE TABLE IF NOT EXISTS groups ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "name VARCHAR(50), "
+                + "name VARCHAR(50) UNIQUE, "
                 + "descriptions TEXT);";
         sqLiteDatabase.execSQL(sql);
 
