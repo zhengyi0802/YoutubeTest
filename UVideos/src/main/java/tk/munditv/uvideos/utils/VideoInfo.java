@@ -13,8 +13,8 @@ public class VideoInfo {
     @NonNull private final String thumbnailURL;
     @NonNull private final Bitmap thumbnail;
 
-    VideoInfo(@NonNull String videoId, @NonNull String videoTitle, @NonNull String channelTitle,
-              @Nullable String description, @NonNull String thumbnailURL, @NonNull Bitmap thumbnail) {
+    public VideoInfo(@NonNull String videoId, @NonNull String videoTitle, @NonNull String channelTitle,
+              @Nullable String description, @NonNull String thumbnailURL, @Nullable Bitmap thumbnail) {
         this.videoId = videoId;
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;

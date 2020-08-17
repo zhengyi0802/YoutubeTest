@@ -38,13 +38,13 @@
         //Developer API key a developer can obtain after creating a new project in google developer console
         //Developer has to enable YouTube Data API v3 in the project
         //Add credentials and then provide the Application's package name and SHA fingerprint
-        public static final String KEY = "AIzaSyAVeTsyAjfpfBBbUQq4E7jooWwtV2D_tjE";
+        public static final String KEY = "AIzaSyBF0MRX59huSkYafWjl1wujIvHN16c2Em0";
 
         //Package name of the app that will call the YouTube Data API
-        public static final String PACKAGENAME = "YouTubePlayer_SampleApp";
+        public static final String PACKAGENAME = "tk.munditv.uvideos";
 
         //SHA1 fingerprint of APP can be found by double clicking on the app signing report on right tab called gradle
-        public static final String SHA1 = "SHA1_FINGERPRINT_STRING";
+        public static final String SHA1 = "A5:EE:35:80:D1:CB:43:CE:AB:F8:EB:85:08:16:C4:03:BA:C1:97:65";
 
         //maximum results that should be downloaded via the YouTube data API at a time
         private static final long MAXRESULTS = 50;

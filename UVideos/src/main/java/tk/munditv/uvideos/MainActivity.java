@@ -1,7 +1,6 @@
 package tk.munditv.uvideos;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -9,6 +8,7 @@ import android.view.Menu;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -151,4 +151,11 @@ public class MainActivity extends AppCompatActivity {
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void setActionBarTitle(String title) {
+        ActionBar action = getSupportActionBar();
+        action.setTitle(title);
+    }
+
+
 }

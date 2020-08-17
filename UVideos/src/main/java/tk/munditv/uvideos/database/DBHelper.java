@@ -8,14 +8,18 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import tk.munditv.uvideos.R;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "DBHelper";
+    private Context mContext;
 
     public DBHelper(@Nullable Context context, @Nullable String name,
                     @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
         Log.d(TAG, "DBHelper");
+        mContext = context;
     }
 
     @Override
@@ -27,7 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "title VARCHAR(200), "
                 + "catagoryid INTEGER, "
                 + "groupid INTEGER, "
-                + "descriptions TEXT);";
+                + "descriptions TEXT, "
+                + "thumbnailurl VARCHAR(200));";
         sqLiteDatabase.execSQL(sql);
 
         sql = "CREATE TABLE IF NOT EXISTS catagory ("
@@ -40,8 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "name VARCHAR(50) UNIQUE, "
                 + "descriptions TEXT);";
         sqLiteDatabase.execSQL(sql);
-
-        ContentValues values = new ContentValues();
+        ContentValues values = null;
+/*
+        values = new ContentValues();
         values.put("name", "chinese");
         values.put("descriptions", "Chinese");
         sqLiteDatabase.insert("groups", null, values);
@@ -65,22 +71,22 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", "korean");
         values.put("descriptions", "Korean");
         sqLiteDatabase.insert("groups", null, values);
-
+*/
         values = new ContentValues();
-        values.put("name", "videos");
-        values.put("descriptions", "Videos");
+        values.put("name", mContext.getString(R.string.title_videos));
+        values.put("descriptions", mContext.getString(R.string.title_videos));
         sqLiteDatabase.insert("catagory", null, values);
         values = new ContentValues();
-        values.put("name", "musics");
-        values.put("descriptions", "Musics");
+        values.put("name", mContext.getString(R.string.title_musics));
+        values.put("descriptions", mContext.getString(R.string.title_musics));
         sqLiteDatabase.insert("catagory", null, values);
         values = new ContentValues();
-        values.put("name", "news");
-        values.put("descriptions", "News");
+        values.put("name", mContext.getString(R.string.title_news));
+        values.put("descriptions", mContext.getString(R.string.title_news));
         sqLiteDatabase.insert("catagory", null, values);
         values = new ContentValues();
-        values.put("name", "live");
-        values.put("descriptions", "Live");
+        values.put("name", mContext.getString(R.string.title_live));
+        values.put("descriptions", mContext.getString(R.string.title_live));
         sqLiteDatabase.insert("catagory", null, values);
     }
 

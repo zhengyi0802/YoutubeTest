@@ -5,7 +5,15 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +28,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem;
 
+import java.util.ArrayList;
+
+import tk.munditv.uvideos.database.CatagoryTable;
+import tk.munditv.uvideos.database.GroupTable;
 import tk.munditv.uvideos.database.VideosDatabase;
 import tk.munditv.uvideos.database.VideosTable;
 import tk.munditv.uvideos.utils.FullScreenHelper;
@@ -34,6 +46,7 @@ public class PlayerActivity extends AppCompatActivity {
     private String videoID;
     private String title;
     private String descriptions;
+    private String thumbnailurl;
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
@@ -78,6 +91,7 @@ public class PlayerActivity extends AppCompatActivity {
         videoID = getIntent().getStringExtra("VIDEO_ID");
         title = getIntent().getStringExtra("VIDEO_TITLE");
         descriptions = getIntent().getStringExtra("VIDEO_DESC");
+        thumbnailurl = getIntent().getStringExtra("VIDEO_THUMBNAILURL");
         video_title.setText(title);
         video_id.setText("Video ID : " + videoID);
         video_desc.setText(descriptions);
@@ -124,11 +138,93 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Log.d(TAG, "AddFavorite - OnClick()");
-            VideosTable videosTable = new VideosTable(-1, videoID, title,
-                    1, 1, descriptions);
-            VideosDatabase.insertVideoData(videosTable);
+            showPopupWindow();
+            //saveDatabase();
+            youTubePlayerView.getPlayerUiController().getMenu().dismiss();
         }
     };
+
+    private int groupsid;
+    private int catagoryid;
+    private void showPopupWindow() {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.vidoe_popupwindow, null);
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        TextView mLabelCatagory = popupView.findViewById(R.id.label_catagory);
+        TextView mLabelGroups = popupView.findViewById(R.id.label_groups);
+        Button mButtonSave = popupView.findViewById(R.id.btn_save);
+        Button mButtonCancel = popupView.findViewById(R.id.btn_cancel);
+        Spinner mSpinnerCatagory = popupView.findViewById(R.id.spinner_catagory);
+        Spinner mSpinnerGroups = popupView.findViewById(R.id.spinner_groups);
+        mLabelCatagory.setText(getString(R.string.text_catagory));
+        mLabelGroups.setText(getString(R.string.text_groups));
+        mButtonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveDatabase(catagoryid, groupsid);
+                popupWindow.dismiss();
+            }
+        });
+        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+        ArrayList<CatagoryTable> catagorydata = VideosDatabase.queryCatagoryTable(null);
+        String[] names = new String[catagorydata.size()];
+        for(int i=0; i<catagorydata.size(); i++) {
+            names[i] = catagorydata.get(i).getName();
+        }
+        ArrayAdapter<String> mSpinnerCatagoryAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, names);
+        mSpinnerCatagory.setAdapter(mSpinnerCatagoryAdapter);
+        mSpinnerCatagory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                catagoryid = catagorydata.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                catagoryid = catagorydata.get(0).getId();
+            }
+        });
+
+        ArrayList<GroupTable> groupdata = VideosDatabase.queryGroupTable(null);
+        names = new String[groupdata.size()];
+        for(int i=0; i<groupdata.size(); i++) {
+            names[i] = groupdata.get(i).getName();
+        }
+        ArrayAdapter<String> mSpinnerGroupsAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, names);
+        mSpinnerGroups.setAdapter(mSpinnerGroupsAdapter);
+        mSpinnerGroups.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                groupsid = groupdata.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                groupsid = groupdata.get(0).getId();
+            }
+        });
+
+
+        popupWindow.setTouchable(true);
+        //popupWindow.setBackgroundDrawable(new ColorDrawable());
+        popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 0);
+    }
+
+    private void saveDatabase(int catagoryId, int groupId) {
+        VideosTable videosTable = new VideosTable(-1, videoID, title,
+                catagoryId, groupId, descriptions, thumbnailurl);
+        VideosDatabase.insertVideoData(videosTable);
+    }
 
     private void addFullScreenListenerToPlayer() {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {

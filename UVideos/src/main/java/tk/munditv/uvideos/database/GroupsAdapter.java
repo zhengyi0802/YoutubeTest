@@ -40,6 +40,7 @@ public class GroupsAdapter extends BaseAdapter {
             textId.setText(Integer.toString(groupTable.getId()));
             textName.setText(groupTable.getName());
             textDescriptions.setText(groupTable.getDescriptions());
+            rawView.setTag(mLists.get(position));
         } else {
             rawView = convertView;
         }

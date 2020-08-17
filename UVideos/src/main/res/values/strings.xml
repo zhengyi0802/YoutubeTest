@@ -12,7 +12,7 @@
     <string name="hint_search">Search YouTube</string>
     <string name="label_search">Search</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Home(Search YouTube Videos)</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_videos">Videos</string>
@@ -47,4 +47,37 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <string-array name="fields_groups">
+        <item>id</item>
+        <item>name</item>
+        <item>descriptions</item>
+    </string-array>
+    <string-array name="fields_catagory">
+        <item>id</item>
+        <item>name</item>
+        <item>descriptions</item>
+    </string-array>
+    <string-array name="fields_videos">
+        <item>id</item>
+        <item>videoid</item>
+        <item>title</item>
+        <item>groupid</item>
+        <item>catagoryid</item>
+        <item>descriptions</item>
+        <item>thumbnailurl</item>
+    </string-array>
+
+    <string name="title_videos">Videos</string>
+    <string name="title_musics">Musics</string>
+    <string name="title_news">News</string>
+    <string name="title_live">Live Channels</string>
+
+    <string name="text_groups">Groups</string>
+    <string name="text_catagory">Catagory</string>
+    <string name="text_videos">Videos</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <string name="new_groups_name">New Group Name</string>
 </resources>

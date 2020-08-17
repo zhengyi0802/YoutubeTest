@@ -17,7 +17,7 @@ public class VideosDatabase {
 
     private static final String TAG = "VideosDatabase";
     private static final String DBName= "uvideos.db";
-    private static final int Version = 1;
+    private static final int Version = 2;
 
     public static final int GROUP_TABLE = 1;
     public static final int CATAGORY_TABLE = 2;
@@ -62,6 +62,7 @@ public class VideosDatabase {
         values.put("catagoryid", videosTable.getCatagoryId());
         values.put("groupid", videosTable.getGroupid());
         values.put("descriptions", videosTable.getDescriptions());
+        values.put("thumbnailurl", videosTable.getThumbnailurl());
         try {
             mDB.insert("videos", null, values);
         } catch (Exception e) {
@@ -94,7 +95,7 @@ public class VideosDatabase {
         String[] columns = {"id", "name", "descriptions"};
         Cursor cursor = mDB.query("groups", columns, condition,
                 null,null, null, null);
-        if (cursor.getCount() == 0) return null;
+        if (cursor.getCount() == 0) return groupTables;
         cursor.moveToFirst();
         do {
             GroupTable groupTable = new GroupTable(cursor.getInt(0),
@@ -111,7 +112,7 @@ public class VideosDatabase {
         String[] columns = {"id", "name", "descriptions"};
         Cursor cursor = mDB.query("catagory", columns, condition,
                 null,null, null, null);
-        if (cursor.getCount() == 0) return null;
+        if (cursor.getCount() == 0) return catagoryTables;
         cursor.moveToFirst();
         do {
             CatagoryTable catagoryTable = new CatagoryTable(cursor.getInt(0),
@@ -125,15 +126,16 @@ public class VideosDatabase {
     public static ArrayList<VideosTable> queryVideosTable(@Nullable String condition) {
         mDB = mDH.getReadableDatabase();
         ArrayList<VideosTable> videosTables = new ArrayList<VideosTable>();
-        String[] columns = {"id", "videoid", "title", "catagoryid", "groupid", "descriptions"};
+        String[] columns = {"id", "videoid", "title", "catagoryid", "groupid",
+                "descriptions", "thumbnailurl"};
         Cursor cursor = mDB.query("videos", columns, condition,
                 null, null, null, null);
-        if (cursor.getCount() == 0) return null;
+        if (cursor.getCount() == 0) return videosTables;
         cursor.moveToFirst();
         do {
             VideosTable videosTable =new VideosTable(cursor.getInt(0), cursor.getString(1),
                     cursor.getString(2), cursor.getInt(3), cursor.getInt(4),
-                    cursor.getString(5));
+                    cursor.getString(5), cursor.getString(6));
             videosTables.add(videosTable);
         } while (cursor.moveToNext());
         return videosTables;
@@ -163,6 +165,7 @@ public class VideosDatabase {
         values.put("catagoryid", videosTable.getCatagoryId());
         values.put("groupid", videosTable.getGroupid());
         values.put("descriptions", videosTable.getDescriptions());
+        values.put("thumbnalurl", videosTable.getThumbnailurl());
         mDB.update("videos", values, condition, null);
     }
 

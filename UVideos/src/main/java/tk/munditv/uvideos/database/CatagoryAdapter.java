@@ -40,6 +40,7 @@ public class CatagoryAdapter extends BaseAdapter {
             textId.setText(Integer.toString(catagoryTable.getId()));
             textName.setText(catagoryTable.getName());
             textDescriptions.setText(catagoryTable.getDescriptions());
+            rawView.setTag(mLists.get(position));
         } else {
             rawView = convertView;
         }

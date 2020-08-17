@@ -122,6 +122,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.MyViewHo
                 intent.putExtra("VIDEO_ID", singleVideo.getVideoId());
                 intent.putExtra("VIDEO_TITLE",singleVideo.getVideoTitle());
                 intent.putExtra("VIDEO_DESC",singleVideo.getDescription());
+                intent.putExtra("VIDEO_THUMBNAILURL", singleVideo.getThumbnailURL());
 
                 //Flags define hot the activity should behave when launched
                 //FLAG_ACTIVITY_NEW_TASK flag if set, the activity will become the start of a new task on this history stack.
@@ -139,6 +140,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.MyViewHo
     //here the dataset is mVideoList
     @Override
     public int getItemCount() {
+        if (mVideoList == null) return 0;
         return mVideoList.size();
     }
 }

@@ -11,7 +11,7 @@
     by infalting the video_item.xml which has the CardView set to show
     Thumbnail, Video title, id and short description -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/news_recycler_view"
+        android:id="@+id/live_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="5dp"

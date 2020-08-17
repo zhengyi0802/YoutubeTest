@@ -9,6 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/new_group_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:hint="@string/new_groups_name"
+        android:visibility="gone"
+        android:text="" />
+
     <ListView
         android:id="@+id/listview_database"
         android:layout_width="match_parent"

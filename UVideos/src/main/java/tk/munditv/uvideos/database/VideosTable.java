@@ -1,5 +1,8 @@
 package tk.munditv.uvideos.database;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.Gson;
 
 public class VideosTable {
@@ -9,15 +12,18 @@ public class VideosTable {
     private int catagoryid;
     private int groupid;
     private String descriptions;
+    private String thumbnailurl;
 
-    public VideosTable(int id, String videoid, String title,
-                       int catagoryid, int groupid, String descriptions) {
+    public VideosTable(int id, @NonNull String videoid, @NonNull String title,
+                       int catagoryid, int groupid,
+                       @Nullable String descriptions, @Nullable String thumbnailurl) {
         this.id = id;
         this.videoid = videoid;
         this.title = title;
         this.catagoryid = catagoryid;
         this.groupid = groupid;
         this.descriptions = descriptions;
+        this.thumbnailurl = thumbnailurl;
     }
 
     public void setId(int id) {
@@ -28,18 +34,20 @@ public class VideosTable {
         return id;
     }
 
-    public void setVideoid(String videoid) {
+    public void setVideoid(@NonNull String videoid) {
         this.videoid = videoid;
     }
 
+    @NonNull
     public String getVideoid() {
         return videoid;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull String title) {
         this.title = title;
     }
 
+    @NonNull
     public String getTitle() {
         return title;
     }
@@ -66,6 +74,15 @@ public class VideosTable {
 
     public String getDescriptions() {
         return descriptions;
+    }
+
+    public void setThumbnailurl(String thumbnailurl) {
+        this.thumbnailurl = thumbnailurl;
+    }
+
+    @Nullable
+    public String getThumbnailurl() {
+        return thumbnailurl;
     }
 
     public String toJson() {

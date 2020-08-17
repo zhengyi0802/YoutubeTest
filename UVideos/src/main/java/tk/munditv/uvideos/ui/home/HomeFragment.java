@@ -115,6 +115,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        String title=getString(R.string.menu_home);
+        ((MainActivity)getActivity()).setActionBarTitle(title);
+
         return root;
     }
     //custom search method which takes argument as the keyword for which videos is to be searched
@@ -164,5 +167,10 @@ public class HomeFragment extends Fragment {
 
         //notify the Adapter that the data has been downloaded so that list can be updapted
         youtubeAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

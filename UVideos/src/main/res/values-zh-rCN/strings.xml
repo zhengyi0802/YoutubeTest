@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">U影片</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">影片使用者</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">导航标题</string>
+    <string name="action_login">登入</string>
+    <string name="action_settings">设置</string>
+    <string name="action_database">浏览资料库</string>
+
+    <string name="hint_search">搜尋YouTube</string>
+    <string name="label_search">搜尋</string>
+
+    <string name="menu_home">首页(搜寻YouTube影片)</string>
+    <string name="menu_gallery">图片</string>
+    <string name="menu_slideshow">投影片</string>
+    <string name="menu_videos">影片</string>
+    <string name="menu_musics">音乐</string>
+    <string name="menu_news">新闻</string>
+    <string name="menu_live">直播频道</string>
+    <string name="menu_exit">离开</string>
+    <string name="title_activity_settings">设置</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">信息</string>
+    <string name="sync_header">同步</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_login">登入</string>
+    <string name="title_activity_player">播放器</string>
+    <string name="title_activity_database">浏览资料库</string>
+    <string name="prompt_email">邮件信箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登入或注冊</string>
+    <string name="action_sign_in_short">登入</string>
+    <string name="welcome">"欢迎 !"</string>
+    <string name="invalid_username">非法使用着</string>
+    <string name="invalid_password">密碼至少要5个字元</string>
+    <string name="login_failed">"登入失败"</string>
+
+    <string-array name="fields_groups">
+        <item>id</item>
+        <item>name</item>
+        <item>descriptions</item>
+    </string-array>
+    <string-array name="fields_catagory">
+        <item>id</item>
+        <item>name</item>
+        <item>descriptions</item>
+    </string-array>
+    <string-array name="fields_videos">
+        <item>id</item>
+        <item>videoid</item>
+        <item>title</item>
+        <item>groupid</item>
+        <item>catagoryid</item>
+        <item>descriptions</item>
+        <item>thumbnailurl</item>
+    </string-array>
+
+    <string name="title_videos">影片</string>
+    <string name="title_musics">音乐</string>
+    <string name="title_news">新闻</string>
+    <string name="title_live">直播频道</string>
+
+    <string name="text_groups">分类</string>
+    <string name="text_catagory">目录</string>
+    <string name="text_videos">影片</string>
+    <string name="btn_save">储存</string>
+    <string name="btn_cancel">取消</string>
+
+    <string name="new_groups_name">新增分类名称</string>
+
+</resources>
