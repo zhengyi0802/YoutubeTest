@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">YouTubeTest</string>
-
-    <string name="label_search">Search Youtube Videos</string>
-    <string name="btn_send">Search Send</string>
-</resources>

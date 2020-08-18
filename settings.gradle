@@ -1,6 +1,4 @@
 include ':UVideos'
 include ':MundiYTPlayer'
 include ':YouTubeSearch'
-include ':testSearch'
-include ':testPlayer'
 rootProject.name = "YouTubeTest"
